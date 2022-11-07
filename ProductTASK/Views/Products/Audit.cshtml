@@ -1,0 +1,75 @@
+﻿@model List<Audit>
+
+<div class="container p-1">
+    <div class="row pt-4">
+        <div class="col-2">
+            <h6 class="text-primary">History</h6>
+		</div>
+	</div>
+    <br>
+    <table class="table table-bordered table-striped" style="width:50%">
+        <thead>
+            <tr>
+                <th>
+                   UserId
+                </th>
+                <th>
+                    OldValue
+                </th>                               
+                <th>
+                    NewValues
+                </th>
+                <th>
+                    AffectedColumns
+                </th>
+                
+                <th>
+                    TableName
+                </th>
+                <th>
+                    Type
+                </th>
+    
+                <th>
+                    DateTime
+                </th>
+                <th>
+                    PrimaryKey
+                </th>
+                
+            </tr>
+        </thead>
+        <tbody>
+            @foreach(var obj in Model)
+            {
+                <tr>
+                    <td width="5%">
+                        @obj.UserId
+                    </td>
+                    <td width="5%">
+                        @obj.OldValues
+                    </td>
+                    <td width="5%">
+                        @obj.NewValues
+                    </td>
+                    <td width="5%">
+                        @obj.AffectedColumns
+                    </td>
+                    <td width="5%">
+                        @obj.TableName
+                    </td>
+                    <td width="5%">
+                        @obj.Type
+                    </td>
+                    <td width="5%">
+                        @obj.DateTime
+                    </td>
+                    <td width="5%">
+                        @obj.PrimaryKey
+                    </td>
+                    
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

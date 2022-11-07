@@ -121,6 +121,18 @@ namespace ProductTASK.Controllers
         }
 
         private bool ProductExists(Guid id) => _context.Products.Any(e => e.Id == id);
-        
+
+        [HttpGet]
+        [Authorize(Roles = "admin")]
+        public IActionResult HistoryList()
+        {
+            var histories = _context.AuditLogs!.ToList();
+
+            if (histories is null)
+                return View();
+
+            return View(histories);
+        }
+
     }
 }
