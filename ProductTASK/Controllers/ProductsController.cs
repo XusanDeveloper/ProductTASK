@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using ProductTASK.Data.Context;
 using ProductTASK.Models;
 using ProductTASK.Services.Interfaces;
+using System.Security.Claims;
 
 namespace ProductTASK.Controllers
 {
@@ -48,8 +49,10 @@ namespace ProductTASK.Controllers
         {
             if (ModelState.IsValid)
             {
-                await productService.CreateProductAsync(product);
-                
+                var user = User?.FindFirst(ClaimTypes.NameIdentifier).Value;
+
+                await productService.CreateProductAsync(user, product);
+
                 return RedirectToAction(nameof(Index));
             }
             return View(product);
@@ -80,7 +83,8 @@ namespace ProductTASK.Controllers
             {
                 try
                 {
-                    await productService.UpdateProductAsync(id, product);
+                    var user = User?.FindFirst(ClaimTypes.NameIdentifier).Value;
+                    await productService.UpdateProductAsync(user, id, product);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -110,8 +114,9 @@ namespace ProductTASK.Controllers
         {
             if (_context.Products == null)
                 return Problem("Entity set 'ApplicationDbContext.Products'  is null.");
-            
-            await productService.DeleteProductAsync(product);
+
+            var user = User?.FindFirst(ClaimTypes.NameIdentifier).Value;
+            await productService.DeleteProductAsync(user, product);
             return RedirectToAction(nameof(Index));
         }
 

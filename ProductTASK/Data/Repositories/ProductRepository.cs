@@ -6,6 +6,14 @@ namespace ProductTASK.Data.Repositories
 {
     public class ProductRepository : GenericRepository<Product>, IProductRepository
     {
-        public ProductRepository(ApplicationDbContext dbContext) : base(dbContext) { }
+        public readonly ApplicationDbContext dbContext;
+        public ProductRepository(ApplicationDbContext dbContext) : base(dbContext)
+        {
+            this.dbContext = dbContext;
+        }
+
+        public void SaveAudit(Product oldProduct, Product model) => dbContext.Entry(oldProduct).CurrentValues.SetValues(model);
+
+        IQueryable<Audit> IProductRepository.GetAllAuditLogs() => dbContext.Set<Audit>();
     }
 }

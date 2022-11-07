@@ -5,7 +5,7 @@ using ProductTASK.Models;
 
 namespace ProductTASK.Data.Context
 {
-    public class ApplicationDbContext : IdentityDbContext<ApplicationUser, ApplicationRole, string>
+    public class ApplicationDbContext : AuditableIdentityContext
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options) { }

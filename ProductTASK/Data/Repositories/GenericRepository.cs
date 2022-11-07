@@ -15,7 +15,6 @@ namespace ProductTASK.Data.Repositories
         public async ValueTask<TEntity> AddAsync(TEntity entity)
         {
             dbContext.Add(entity);
-            await dbContext.SaveChangesAsync();
             
             return entity;
         }
@@ -27,7 +26,6 @@ namespace ProductTASK.Data.Repositories
         public async ValueTask<TEntity> RemoveAsync(TEntity entity)
         {
             dbContext.Remove(entity);
-            await dbContext.SaveChangesAsync();
 
             return entity;
         }
@@ -35,9 +33,14 @@ namespace ProductTASK.Data.Repositories
         public async ValueTask<TEntity> UpdateAsync(TEntity entity)
         {
             dbContext.Update(entity);
-            await dbContext.SaveChangesAsync();
 
             return entity;
+        }
+
+        public async ValueTask<int> SaveChanges(string userId)
+        {
+            var result = await dbContext.SaveChangesAsync(userId);
+            return result;
         }
     }
 }

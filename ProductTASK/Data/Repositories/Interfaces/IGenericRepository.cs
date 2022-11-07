@@ -7,5 +7,6 @@
         ValueTask<TEntity> RemoveAsync(TEntity entity);
         IQueryable<TEntity> FindAll();
         ValueTask<TEntity> UpdateAsync(TEntity entity);
+        ValueTask<int> SaveChanges(string userId);
     }
 }
